@@ -25,8 +25,6 @@ import com.jmindel.fbuparstagram.model.Post;
 import com.parse.ParseFile;
 import com.parse.ParseUser;
 
-import org.parceler.Parcels;
-
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -78,7 +76,9 @@ public class MakePostActivity extends AppCompatActivity {
                     post.setImage(new ParseFile(photoFile));
                     post.setCaption(caption);
                     post.setUser(ParseUser.getCurrentUser());
-                    getIntent().putExtra(KEY_POST, Parcels.wrap(post));
+                    getIntent().putExtra(KEY_POST, post);
+                    setResult(HomeActivity.MAKE_POST_REQUEST_CODE, getIntent());
+                    finish();
                 } else {
                     Toast.makeText(MakePostActivity.this, "Add an image and caption before posting.", Toast.LENGTH_LONG).show();
                 }
