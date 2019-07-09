@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import com.jmindel.fbuparstagram.R;
 import com.jmindel.fbuparstagram.model.Post;
@@ -14,6 +15,8 @@ import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
+
+import org.parceler.Parcels;
 
 import java.util.List;
 
@@ -60,10 +63,13 @@ public class HomeActivity extends AppCompatActivity {
         post.saveInBackground(new SaveCallback() {
             @Override
             public void done(ParseException e) {
-                if (e == null) {
-                    Log.d("HomeActivity", "Create post success!");
-                } else {
+                if (e != null) {
+                    Log.e("HomeActivity", "Posting failed");
                     e.printStackTrace();
+                    Toast.makeText(HomeActivity.this, "Posting failed", Toast.LENGTH_LONG).show();
+                } else {
+                    Log.d("HomeActivity", "Create post success!");
+                    // TODO: Add to adapter
                 }
             }
         });
@@ -82,7 +88,20 @@ public class HomeActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         if (resultCode == RESULT_OK && requestCode == MAKE_POST_REQUEST_CODE) {
-            // TODO: Get result back from make post
+            Post post = Parcels.unwrap(data.getParcelableExtra(MakePostActivity.KEY_POST));
+            post.saveInBackground(new SaveCallback() {
+                @Override
+                public void done(ParseException e) {
+                    if (e != null) {
+                        Log.e("HomeActivity", "Posting failed");
+                        e.printStackTrace();
+                        Toast.makeText(HomeActivity.this, "Posting failed", Toast.LENGTH_LONG).show();
+                    } else {
+                        Log.d("HomeActivity", "Posting succeeded!");
+                        // TODO: Navigate to new post and/or otherwise show it
+                    }
+                }
+            });
         }
     }
 }

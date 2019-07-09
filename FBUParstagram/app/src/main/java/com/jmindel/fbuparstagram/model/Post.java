@@ -6,7 +6,10 @@ import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
+import org.parceler.Parcel;
+
 @ParseClassName("Post")
+@Parcel
 public class Post extends ParseObject {
     private static final String KEY_CAPTION = "caption";
     private static final String KEY_IMAGE = "image";
