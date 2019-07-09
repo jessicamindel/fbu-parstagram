@@ -23,12 +23,14 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        // Connect all views
         etUsername = findViewById(R.id.etUsername);
         etPassword = findViewById(R.id.etPassword);
         etEmail = findViewById(R.id.etEmail);
         bLogin = findViewById(R.id.bLogin);
         bSignUp = findViewById(R.id.bSignUp);
 
+        // Set up button clicks
         bLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -40,7 +42,6 @@ public class LoginActivity extends AppCompatActivity {
                 }
             }
         });
-
         bSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -53,6 +54,13 @@ public class LoginActivity extends AppCompatActivity {
                 }
             }
         });
+
+        // Automatically log in cached user
+        ParseUser currUser = ParseUser.getCurrentUser();
+        if (currUser != null) {
+            Log.d("LoginActivity", "Logged-in user persisted successfully.");
+            launchHome();
+        }
     }
 
     protected void login(final @NonNull String username, final @NonNull String password) {
@@ -61,10 +69,7 @@ public class LoginActivity extends AppCompatActivity {
             public void done(ParseUser user, ParseException e) {
                 if (e == null) {
                     Log.d("LoginActivity", "Login successful!");
-
-                    Intent i = new Intent(LoginActivity.this, HomeActivity.class);
-                    startActivity(i);
-                    finish();
+                    launchHome();
                 } else {
                     Log.e("LoginActivity", "Login failed.");
                     e.printStackTrace();
@@ -90,5 +95,11 @@ public class LoginActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    protected void launchHome() {
+        Intent i = new Intent(LoginActivity.this, HomeActivity.class);
+        startActivity(i);
+        finish();
     }
 }
