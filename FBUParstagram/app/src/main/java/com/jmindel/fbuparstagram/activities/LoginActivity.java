@@ -1,4 +1,4 @@
-package com.jmindel.fbuparstagram;
+package com.jmindel.fbuparstagram.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.jmindel.fbuparstagram.R;
 import com.parse.LogInCallback;
 import com.parse.ParseException;
 import com.parse.ParseUser;
@@ -19,6 +20,7 @@ public class LoginActivity extends AppCompatActivity {
     EditText etUsername, etPassword, etEmail;
     Button bLogin, bSignUp;
 
+    // ids start with 1
     public static final int HOME_REQUEST_CODE = 1;
     public static final String KEY_LOGGED_OUT = "loggedOut";
 

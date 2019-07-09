@@ -1,10 +1,13 @@
-package com.jmindel.fbuparstagram;
+package com.jmindel.fbuparstagram.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 
+import com.jmindel.fbuparstagram.R;
 import com.jmindel.fbuparstagram.model.Post;
 import com.parse.FindCallback;
 import com.parse.ParseException;
@@ -15,6 +18,9 @@ import com.parse.SaveCallback;
 import java.util.List;
 
 public class HomeActivity extends AppCompatActivity {
+
+    // ids start with 11
+    public static final int MAKE_POST_REQUEST_CODE = 11;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,5 +72,17 @@ public class HomeActivity extends AppCompatActivity {
     public void logOut(View view) {
         getIntent().putExtra(LoginActivity.KEY_LOGGED_OUT, true);
         finish();
+    }
+
+    public void onMakePost(View view) {
+        Intent i = new Intent(this, MakePostActivity.class);
+        startActivityForResult(i, MAKE_POST_REQUEST_CODE);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        if (resultCode == RESULT_OK && requestCode == MAKE_POST_REQUEST_CODE) {
+            // TODO: Get result back from make post
+        }
     }
 }
