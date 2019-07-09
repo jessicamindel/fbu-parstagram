@@ -3,6 +3,7 @@ package com.jmindel.fbuparstagram;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
 
 import com.jmindel.fbuparstagram.model.Post;
 import com.parse.FindCallback;
@@ -19,6 +20,9 @@ public class HomeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+
+        // Set logged out to false
+        getIntent().putExtra(LoginActivity.KEY_LOGGED_OUT, false);
 
         final Post.Query postsQuery = new Post.Query();
         postsQuery.getTop().withUser();
@@ -57,5 +61,10 @@ public class HomeActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    public void logOut(View view) {
+        getIntent().putExtra(LoginActivity.KEY_LOGGED_OUT, true);
+        finish();
     }
 }

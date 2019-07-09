@@ -9,8 +9,8 @@ A simplified Instagram clone built with Parse.
 ## Required User Stories
 - [x] User sees app icon in home screen. (1 point)
 - [x] User can sign up to create a new account using Parse authentication (1 point)
-- [ ] User can log in and log out of his or her account (1 points)
-- [ ] The current signed in user is persisted across app restarts (1 point)
+- [x] User can log in and log out of his or her account (1 points)
+- [x] The current signed in user is persisted across app restarts (1 point)
 - [ ] User can take a photo, add a caption, and post it to "Instagram" (2 points)
 - [ ] User can view the last 20 posts submitted to "Instagram" (2 points)
 - [ ] User can pull to refresh the last 20 posts submitted to "Instagram" (1 points)
@@ -38,3 +38,4 @@ A simplified Instagram clone built with Parse.
 - [ ] User can repost a post
   - [ ] ...with their own filters and/or annotations added
   - [ ] The repost links back to the original post despite having a potentially different image
+- [ ] Add fun scroll animations (e.g. background color fade on scroll, segmented scrolling, etc.)

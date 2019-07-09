@@ -3,6 +3,7 @@ package com.jmindel.fbuparstagram;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -17,6 +18,9 @@ import com.parse.SignUpCallback;
 public class LoginActivity extends AppCompatActivity {
     EditText etUsername, etPassword, etEmail;
     Button bLogin, bSignUp;
+
+    public static final int HOME_REQUEST_CODE = 1;
+    public static final String KEY_LOGGED_OUT = "loggedOut";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,7 +103,14 @@ public class LoginActivity extends AppCompatActivity {
 
     protected void launchHome() {
         Intent i = new Intent(LoginActivity.this, HomeActivity.class);
-        startActivity(i);
-        finish();
+        startActivityForResult(i, HOME_REQUEST_CODE);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        if (resultCode == RESULT_OK && requestCode == HOME_REQUEST_CODE) {
+            boolean loggedOut = data.getBooleanExtra(KEY_LOGGED_OUT, false);
+            if (loggedOut) finish();
+        }
     }
 }
