@@ -31,6 +31,9 @@ A simplified Instagram clone built with Parse.
 - [ ] User can like a post and see number of likes for each post in the post details screen. (2 points)
 
 ## My Own Stories
+- [x] Use Butterknife to reduce boilerplate
+- [ ] Use ParseLive to automatically update on a new post
+- [ ] Add user follow functionality
 - [ ] User can choose image filters before posting
 - [ ] User can annotate and draw on images...
   - [ ] With brushes

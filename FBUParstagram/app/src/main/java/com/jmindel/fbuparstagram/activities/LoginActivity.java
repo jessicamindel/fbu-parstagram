@@ -16,9 +16,15 @@ import com.parse.ParseException;
 import com.parse.ParseUser;
 import com.parse.SignUpCallback;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class LoginActivity extends AppCompatActivity {
-    EditText etUsername, etPassword, etEmail;
-    Button bLogin, bSignUp;
+    @BindView(R.id.etUsername)  EditText etUsername;
+    @BindView(R.id.etPassword)  EditText etPassword;
+    @BindView(R.id.etEmail)     EditText etEmail;
+    @BindView(R.id.bLogin)      Button bLogin;
+    @BindView(R.id.bSignUp)     Button bSignUp;
 
     // ids start with 1
     public static final int HOME_REQUEST_CODE = 1;
@@ -28,13 +34,7 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
-        // Connect all views
-        etUsername = findViewById(R.id.etUsername);
-        etPassword = findViewById(R.id.etPassword);
-        etEmail = findViewById(R.id.etEmail);
-        bLogin = findViewById(R.id.bLogin);
-        bSignUp = findViewById(R.id.bSignUp);
+        ButterKnife.bind(this);
 
         // Set up button clicks
         bLogin.setOnClickListener(new View.OnClickListener() {
