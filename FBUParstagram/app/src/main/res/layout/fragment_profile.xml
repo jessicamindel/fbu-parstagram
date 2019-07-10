@@ -7,9 +7,9 @@
     android:layout_height="match_parent">
 
     <com.jmindel.fbuparstagram.PostView
-        android:id="@+id/pvPosts"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:layout_margin="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

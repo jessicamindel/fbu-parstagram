@@ -26,8 +26,10 @@ import android.widget.Toast;
 import com.jmindel.fbuparstagram.BitmapScaler;
 import com.jmindel.fbuparstagram.R;
 import com.jmindel.fbuparstagram.model.Post;
+import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseUser;
+import com.parse.SaveCallback;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -84,6 +86,20 @@ public class ComposeFragment extends Fragment {
                     post.setImage(new ParseFile(photoFile));
                     post.setCaption(caption);
                     post.setUser(ParseUser.getCurrentUser());
+                    post.saveInBackground(new SaveCallback() {
+                        @Override
+                        public void done(ParseException e) {
+                            if (e != null) {
+                                Log.e("ComposeFragment", "Failed to post");
+                                e.printStackTrace();
+                                Toast.makeText(getContext(), "Failed to post", Toast.LENGTH_LONG).show();
+                            } else {
+                                Log.d("ComposeFragment", "Posted successfully!");
+                                Toast.makeText(getContext(), "Posted successfully!", Toast.LENGTH_SHORT).show();
+                                // TODO: Take user to their new post, and on close, go to TimelineFragment
+                            }
+                        }
+                    });
 
                     // SHOULD: bundle.putSerializable(KEY_POST, post)
 //                    getIntent().putExtra(KEY_POST, post);

@@ -11,8 +11,8 @@ A simplified Instagram clone built with Parse.
 - [x] User can sign up to create a new account using Parse authentication (1 point)
 - [x] User can log in and log out of his or her account (1 points)
 - [x] The current signed in user is persisted across app restarts (1 point)
-- [ ] User can take a photo, add a caption, and post it to "Instagram" (2 points)
-- [ ] User can view the last 20 posts submitted to "Instagram" (2 points)
+- [x] User can take a photo, add a caption, and post it to "Instagram" (2 points)
+- [x] User can view the last 20 posts submitted to "Instagram" (2 points)
 - [ ] User can pull to refresh the last 20 posts submitted to "Instagram" (1 points)
 - [ ] User can tap a post to view post details, including timestamp and caption. (2 points)
 
@@ -32,6 +32,7 @@ A simplified Instagram clone built with Parse.
 
 ## My Own Stories
 - [x] Use Butterknife to reduce boilerplate
+- [ ] Add progress indicators for posting, loading, etc.
 - [ ] Use ParseLive to automatically update on a new post
 - [ ] Add user follow functionality
 - [ ] User can choose image filters before posting
