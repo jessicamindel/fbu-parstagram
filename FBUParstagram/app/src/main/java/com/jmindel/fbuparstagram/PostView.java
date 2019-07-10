@@ -18,6 +18,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PostView extends RecyclerView {
+    // LEARN: Does this class's functionality break MVC best practices?
+
     private PostAdapter adapter;
     private List<Post> posts;
     private Handler handler;

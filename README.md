@@ -19,7 +19,7 @@ A simplified Instagram clone built with Parse.
 ## Stretch Stories
 - [ ] Style the login page to look like the real Instagram login page. (2 points)
 - [ ] Style the feed to look like the real Instagram feed. (2 points)
-- [ ] The user should switch between different tabs - viewing all posts (feed view), capture (camera and photo gallery view) and profile tabs (posts made) using fragments and a Bottom Navigation View. (2 points)
+- [x] The user should switch between different tabs - viewing all posts (feed view), capture (camera and photo gallery view) and profile tabs (posts made) using fragments and a Bottom Navigation View. (2 points)
 - [ ] User can load more posts once he or she reaches the bottom of the feed using endless scrolling. (2 points)
 - [ ] Show the username and creation time for each post (1 point)
 - [ ] After the user submits a new post, show an indeterminate progress bar while the post is being uploaded to Parse (1 point)
@@ -32,7 +32,6 @@ A simplified Instagram clone built with Parse.
 
 ## My Own Stories
 - [x] Use Butterknife to reduce boilerplate
-- [ ] Add progress indicators for posting, loading, etc.
 - [ ] Use ParseLive to automatically update on a new post
 - [ ] Add user follow functionality
 - [ ] User can choose image filters before posting
@@ -43,3 +42,4 @@ A simplified Instagram clone built with Parse.
   - [ ] ...with their own filters and/or annotations added
   - [ ] The repost links back to the original post despite having a potentially different image
 - [ ] Add fun scroll animations (e.g. background color fade on scroll, segmented scrolling, etc.)
+- [ ] Implement search features
