@@ -8,7 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.jmindel.fbuparstagram.PostView;
+import com.jmindel.fbuparstagram.PostLayout;
 import com.jmindel.fbuparstagram.R;
 import com.jmindel.fbuparstagram.model.Post;
 import com.parse.ParseUser;
@@ -17,7 +17,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class ProfileFragment extends Fragment {
-    @BindView(R.id.pvPosts) PostView pvPosts;
+    @BindView(R.id.pvPosts)
+    PostLayout pvPosts;
 
     @Nullable
     @Override
@@ -30,7 +31,7 @@ public class ProfileFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         ButterKnife.bind(this, view);
 
-        pvPosts.setHandler(new PostView.Handler() {
+        pvPosts.setHandler(new PostLayout.Handler() {
             @Override
             public Post.Query makeQuery() {
                 Post.Query query = super.makeQuery();

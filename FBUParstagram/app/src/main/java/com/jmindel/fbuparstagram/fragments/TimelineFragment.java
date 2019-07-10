@@ -9,7 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.jmindel.fbuparstagram.PostView;
+import com.jmindel.fbuparstagram.PostLayout;
 import com.jmindel.fbuparstagram.R;
 import com.jmindel.fbuparstagram.activities.LoginActivity;
 
@@ -18,7 +18,8 @@ import butterknife.ButterKnife;
 
 public class TimelineFragment extends Fragment {
 
-    @BindView(R.id.pvPosts) PostView pvPosts;
+    @BindView(R.id.pvPosts)
+    PostLayout pvPosts;
 
     @Nullable
     @Override
@@ -31,7 +32,7 @@ public class TimelineFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         ButterKnife.bind(this, view);
 
-        pvPosts.setHandler(new PostView.Handler());
+        pvPosts.setHandler(new PostLayout.Handler());
         pvPosts.runQuery();
     }
 

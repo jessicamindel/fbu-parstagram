@@ -62,6 +62,8 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
 
+        fragmentManager.beginTransaction().replace(R.id.flFragmentContainer, timelineFragment).commit();
+
         // Set logged out to false
         getIntent().putExtra(LoginActivity.KEY_LOGGED_OUT, false);
     }
