@@ -59,6 +59,7 @@ public class PostLayout extends FrameLayout {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         rvPosts.setAdapter(adapter);
         rvPosts.setLayoutManager(linearLayoutManager);
+        rvPosts.addItemDecoration(new EdgeDecorator(32, true, false));
 
         // Configure infinite scrolling
         scrollListener = new EndlessRecyclerViewScrollListener(linearLayoutManager) {
