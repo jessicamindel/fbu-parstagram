@@ -6,11 +6,14 @@ import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
+import java.io.Serializable;
+
 @ParseClassName("Post")
-public class Post extends ParseObject {
-    private static final String KEY_CAPTION = "caption";
-    private static final String KEY_IMAGE = "image";
-    private static final String KEY_USER = "user";
+public class Post extends ParseObject implements Serializable {
+    public static final String KEY_CAPTION = "caption";
+    public static final String KEY_IMAGE = "image";
+    public static final String KEY_USER = "user";
+    public static final String KEY_CREATED_AT = "createdAt";
 
     public String getCaption() {
         return getString(KEY_CAPTION);
