@@ -13,6 +13,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
+        <activity android:name=".activities.DetailActivity"></activity>
+
         <provider
             android:name="android.support.v4.content.FileProvider"
             android:authorities="com.codepath.fileprovider"
@@ -23,7 +25,7 @@
                 android:resource="@xml/fileprovider" />
         </provider>
 
-        <activity android:name=".activities.MakePostActivity"></activity>
+        <activity android:name=".activities.MakePostActivity" />
         <activity android:name=".activities.HomeActivity" />
         <activity android:name=".activities.LoginActivity">
             <intent-filter>

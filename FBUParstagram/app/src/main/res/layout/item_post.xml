@@ -7,53 +7,89 @@
     android:layout_marginLeft="16dp"
     android:layout_marginRight="16dp"
     android:layout_marginBottom="16dp"
-    app:cardCornerRadius="16dp"
+    app:cardCornerRadius="0dp"
     app:cardElevation="10dp"
     app:cardMaxElevation="10dp">
 
-    <android.support.constraint.ConstraintLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="16dp">
+        android:orientation="vertical">
 
-        <ImageView
-            android:id="@+id/ivProfile"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@android:color/black" />
-
-        <TextView
-            android:id="@+id/tvUsername"
-            android:layout_width="wrap_content"
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginLeft="8dp"
-            android:text="username"
-            app:layout_constraintBottom_toBottomOf="@+id/ivProfile"
-            app:layout_constraintStart_toEndOf="@+id/ivProfile"
-            app:layout_constraintTop_toTopOf="@+id/ivProfile" />
+            android:layout_margin="16dp">
+
+            <ImageView
+                android:id="@+id/ivProfile"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@android:color/black" />
+
+            <TextView
+                android:id="@+id/tvUsername"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:text="username"
+                android:textColor="#222"
+                app:layout_constraintBottom_toBottomOf="@+id/ivProfile"
+                app:layout_constraintStart_toEndOf="@+id/ivProfile"
+                app:layout_constraintTop_toTopOf="@+id/ivProfile" />
+
+        </android.support.constraint.ConstraintLayout>
 
         <ImageView
             android:id="@+id/ivImage"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
             android:scaleType="fitCenter"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/ivProfile"
             app:srcCompat="@android:color/black" />
 
-        <TextView
-            android:id="@+id/tvCaption"
-            android:layout_width="0dp"
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="Caption"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/ivImage" />
-    </android.support.constraint.ConstraintLayout>
+            android:layout_margin="16dp">
+
+            <TextView
+                android:id="@+id/tvCaption"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="Caption"
+                android:textColor="#222"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginTop="8dp"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvCaption">
+
+                <ImageView
+                    android:id="@+id/ivLike"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginRight="10dp"
+                    app:srcCompat="@drawable/ufi_heart_icon" />
+
+                <ImageView
+                    android:id="@+id/ivComment"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:srcCompat="@drawable/ufi_comment" />
+            </LinearLayout>
+
+        </android.support.constraint.ConstraintLayout>
+
+    </LinearLayout>
+
 </android.support.v7.widget.CardView>
