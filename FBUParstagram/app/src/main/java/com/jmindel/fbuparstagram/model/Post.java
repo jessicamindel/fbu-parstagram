@@ -1,5 +1,6 @@
 package com.jmindel.fbuparstagram.model;
 
+import com.parse.FindCallback;
 import com.parse.ParseClassName;
 import com.parse.ParseFile;
 import com.parse.ParseObject;
@@ -38,6 +39,16 @@ public class Post extends ParseObject implements Serializable {
 
     public void setUser(ParseUser user) {
         put(KEY_USER, user);
+    }
+
+    public void findLikesInBackground(FindCallback<Like> cb) {
+        Like.Query query = new Like.Query().withPost().withUser().forPost(this);
+        query.findInBackground(cb);
+    }
+
+    public void findCommentsInBackground(FindCallback<Comment> cb) {
+        Comment.Query query = new Comment.Query().withPost().withUser().forPost(this);
+        query.findInBackground(cb);
     }
 
     public static class Query extends ParseQuery<Post> {

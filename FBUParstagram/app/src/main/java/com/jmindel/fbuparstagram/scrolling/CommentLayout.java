@@ -6,6 +6,8 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
+import android.util.Log;
+import android.widget.Toast;
 
 import com.jmindel.fbuparstagram.adapters.CommentAdapter;
 import com.jmindel.fbuparstagram.model.Comment;
@@ -37,13 +39,13 @@ public class CommentLayout extends EndlessScrollRefreshLayout<Comment, CommentAd
 
     @Override
     public void load() {
-        Comment.Query query = new Comment.Query().withPost().withUser();
-        query.whereEqualTo(Comment.KEY_POST, post);
-        query.findInBackground(new FindCallback<Comment>() {
+        post.findCommentsInBackground(new FindCallback<Comment>() {
             @Override
             public void done(List<Comment> objects, ParseException e) {
                 if (e != null) {
-
+                    Log.e("CommentLayout", "Failed to load comments");
+                    e.printStackTrace();
+                    Toast.makeText(getContext(), "Failed to load comments", Toast.LENGTH_LONG).show();
                 } else {
                     items.clear();
                     items.addAll(objects);
@@ -64,7 +66,9 @@ public class CommentLayout extends EndlessScrollRefreshLayout<Comment, CommentAd
             @Override
             public void done(List<Comment> objects, ParseException e) {
                 if (e != null) {
-
+                    Log.e("CommentLayout", "Failed to load comments");
+                    e.printStackTrace();
+                    Toast.makeText(getContext(), "Failed to load comments", Toast.LENGTH_LONG).show();
                 } else {
                     items.addAll(objects);
                     adapter.notifyDataSetChanged();

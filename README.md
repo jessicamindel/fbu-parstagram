@@ -27,8 +27,8 @@ A simplified Instagram clone built with Parse.
   - [ ] Allow the logged in user to add a profile photo (1 point)
   - [ ] Display the profile photo with each post (1 points)
   - [ ] Tapping on a post's username or profile photo goes to that user's profile page and shows a grid view of the user's posts (2 points)
-  - [ ] User can comment on a post and see all comments for each post in the post details screen. (2 points)
-- [ ] User can like a post and see number of likes for each post in the post details screen. (2 points)
+- [x] User can comment on a post and see all comments for each post in the post details screen. (2 points)
+- [x] User can like a post and see number of likes for each post in the post details screen. (2 points)
 
 ## My Own Stories
 - [x] Use Butterknife to reduce boilerplate

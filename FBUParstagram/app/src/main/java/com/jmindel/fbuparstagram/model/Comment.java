@@ -56,5 +56,10 @@ public class Comment extends ParseObject {
             include("post");
             return this;
         }
+
+        public Query forPost(Post post) {
+            whereEqualTo(Like.KEY_POST, post);
+            return this;
+        }
     }
 }
