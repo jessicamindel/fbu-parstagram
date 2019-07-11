@@ -86,7 +86,7 @@ public class HomeActivity extends AppCompatActivity {
 ////                        Toast.makeText(HomeActivity.this, "Posting failed", Toast.LENGTH_LONG).show();
 ////                    } else {
 ////                        Log.d("HomeActivity", "Posting succeeded!");
-////                        posts.add(0, post);
+////                        items.add(0, post);
 ////                        adapter.notifyItemInserted(0);
 ////                        rvPosts.scrollToPosition(0);
 ////                        // TODO: Navigate to new post and/or otherwise show it

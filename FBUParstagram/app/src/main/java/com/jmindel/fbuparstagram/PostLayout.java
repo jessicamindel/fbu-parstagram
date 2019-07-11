@@ -23,14 +23,13 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class PostLayout extends FrameLayout {
-    // LEARN: Does this class's functionality break MVC best practices?
 
     private Handler handler;
     private PostAdapter adapter;
     private List<Post> posts;
     private EndlessRecyclerViewScrollListener scrollListener;
 
-    @BindView(R.id.rvPosts)         RecyclerView rvPosts;
+    @BindView(R.id.rvItems)         RecyclerView rvPosts;
     @BindView(R.id.swipeContainer)  SwipeRefreshLayout swipeContainer;
 
     public PostLayout(@NonNull Context context) {
@@ -49,7 +48,7 @@ public class PostLayout extends FrameLayout {
     }
 
     private void init() {
-        inflate(getContext(), R.layout.layout_post, this);
+        inflate(getContext(), R.layout.layout_endless_scroll_refresh, this);
         ButterKnife.bind(this, this);
 
         // Configure RecyclerView
