@@ -7,12 +7,14 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.jmindel.fbuparstagram.R;
 import com.jmindel.fbuparstagram.adapters.PostAdapter;
 import com.jmindel.fbuparstagram.model.Comment;
 import com.jmindel.fbuparstagram.model.Post;
 import com.jmindel.fbuparstagram.scrolling.CommentLayout;
+import com.jmindel.fbuparstagram.scrolling.EdgeDecorator;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseUser;
@@ -45,6 +47,7 @@ public class DetailActivity extends AppCompatActivity {
 
         posts = new ArrayList<>();
         postAdapter = new PostAdapter(this, posts);
+        postAdapter.setEnablePostDetailClick(false);
         LinearLayoutManager postLayoutManager = new LinearLayoutManager(this) {
             @Override
             public boolean canScrollVertically() {
@@ -53,6 +56,7 @@ public class DetailActivity extends AppCompatActivity {
         };
         rvPost.setLayoutManager(postLayoutManager);
         rvPost.setAdapter(postAdapter);
+        rvPost.addItemDecoration(new EdgeDecorator(32, true, false));
 
         bComment.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -71,7 +75,9 @@ public class DetailActivity extends AppCompatActivity {
                             // TODO: Clean this up
                         }
                     });
-                } else { /* TODO */ }
+                } else {
+                    Toast.makeText(DetailActivity.this, "Write a message before commenting!", Toast.LENGTH_LONG).show();
+                }
             }
         });
 

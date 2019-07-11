@@ -47,5 +47,15 @@ public class Like extends ParseObject {
             include("post");
             return this;
         }
+
+        public Query fromCurrUser() {
+            whereEqualTo(Like.KEY_USER, ParseUser.getCurrentUser());
+            return this;
+        }
+
+        public Query forPost(Post post) {
+            whereEqualTo(Like.KEY_POST, post);
+            return this;
+        }
     }
 }
