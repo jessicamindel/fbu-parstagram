@@ -95,36 +95,21 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
                             e.printStackTrace();
                             Toast.makeText(activity, "Failed to (un)like post", Toast.LENGTH_LONG).show();
                         } else {
-                            if (objects.size() > 0) { // Add like
+                            if (objects.size() > 0) { // Remove like
                                 objects.get(0).deleteInBackground(new DeleteCallback() {
                                     @Override
                                     public void done(ParseException e) {
-                                        if (e != null) {
-                                            Log.e("PostAdapter", "Failed to unlike post");
-                                            e.printStackTrace();
-                                            Toast.makeText(activity, "Failed to unike post", Toast.LENGTH_LONG).show();
-                                        } else {
-                                            toggleLikeIcon(false, viewHolder);
-                                            viewHolder.tvLikes.setText(Integer.toString(objects.size() - 1));
-                                        }
+                                        updateLike(false, objects.size(), viewHolder, e);
                                     }
                                 });
-                            } else { // Remove like
+                            } else { // Add like
                                 Like like = new Like();
                                 like.setPost(post);
                                 like.setUser(ParseUser.getCurrentUser());
                                 like.saveInBackground(new SaveCallback() {
                                     @Override
                                     public void done(ParseException e) {
-                                        if (e != null) {
-                                            Log.e("PostAdapter", "Failed to like post");
-                                            e.printStackTrace();
-                                            Toast.makeText(activity, "Failed to like post", Toast.LENGTH_LONG).show();
-                                        } else {
-                                            toggleLikeIcon(true, viewHolder);
-                                            int prevNumLikes = Integer.parseInt(viewHolder.tvComments.getText().toString());
-                                            viewHolder.tvLikes.setText(Integer.toString(objects.size() + 1));
-                                        }
+                                        updateLike(true, objects.size(), viewHolder, e);
                                     }
                                 });
                             }
@@ -201,6 +186,17 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
                 viewHolder.tvComments.setText(Integer.toString(objects.size()));
             }
         });
+    }
+
+    private void updateLike(boolean liked, int prevNumLikes, ViewHolder viewHolder, Throwable e) {
+        if (e != null) {
+            Log.e("PostAdapter", "Failed to " + ((liked) ? "" : "un") + "like post");
+            e.printStackTrace();
+            Toast.makeText(activity, "Failed to unlike post", Toast.LENGTH_LONG).show();
+        } else {
+            toggleLikeIcon(liked, viewHolder);
+            viewHolder.tvLikes.setText(Integer.toString(prevNumLikes + ((liked) ? 1 : -1)));
+        }
     }
 
     private void toggleLikeIcon(boolean active, ViewHolder viewHolder) {
