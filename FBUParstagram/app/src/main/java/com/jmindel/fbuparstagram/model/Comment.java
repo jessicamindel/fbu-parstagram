@@ -46,5 +46,15 @@ public class Comment extends ParseObject {
         public Query() {
             super(Comment.class);
         }
+
+        public Query withUser() {
+            include("user");
+            return this;
+        }
+
+        public Query withPost() {
+            include("post");
+            return this;
+        }
     }
 }

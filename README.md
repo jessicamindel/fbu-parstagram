@@ -43,3 +43,5 @@ A simplified Instagram clone built with Parse.
   - [ ] The repost links back to the original post despite having a potentially different image
 - [ ] Add fun scroll animations (e.g. background color fade on scroll, segmented scrolling, etc.)
 - [ ] Implement search features
+
+Oh boy. So I've hit a rather ugly point: I need to separate PostLayout into a PostManager and an EndlessScrollRefreshLayout. And I really, really don't want to. I have a lot left to finish in this app as a whole... and I'm concerned about it at this point.

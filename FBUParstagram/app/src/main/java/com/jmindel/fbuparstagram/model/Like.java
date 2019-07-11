@@ -37,5 +37,15 @@ public class Like extends ParseObject {
         public Query() {
             super(Like.class);
         }
+
+        public Query withUser() {
+            include("user");
+            return this;
+        }
+
+        public Query withPost() {
+            include("post");
+            return this;
+        }
     }
 }

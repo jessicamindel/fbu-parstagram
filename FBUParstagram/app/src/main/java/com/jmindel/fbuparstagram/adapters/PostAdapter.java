@@ -1,7 +1,9 @@
 package com.jmindel.fbuparstagram.adapters;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +13,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.jmindel.fbuparstagram.R;
+import com.jmindel.fbuparstagram.activities.DetailActivity;
 import com.jmindel.fbuparstagram.model.Post;
 
 import java.util.List;
@@ -38,11 +41,20 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
-        Post post = posts.get(i);
+        final Post post = posts.get(i);
         viewHolder.tvUsername.setText(post.getUser().getUsername());
         viewHolder.tvCaption.setText(post.getCaption());
         Glide.with(activity).load(post.getImage().getUrl()).into(viewHolder.ivImage);
         // TODO: Profile pictures
+
+        viewHolder.cvCard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(activity, DetailActivity.class);
+                intent.putExtra(DetailActivity.KEY_POST_ID, post.getObjectId());
+                activity.startActivity(intent);
+            }
+        });
     }
 
     @Override
@@ -51,6 +63,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
+        @BindView(R.id.cvCard)      CardView cvCard;
         @BindView(R.id.ivProfile)   ImageView ivProfile;
         @BindView(R.id.tvUsername)  TextView tvUsername;
         @BindView(R.id.ivImage)     ImageView ivImage;
