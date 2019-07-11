@@ -10,6 +10,7 @@ import com.jmindel.fbuparstagram.adapters.CommentAdapter;
 import com.jmindel.fbuparstagram.adapters.PostAdapter;
 import com.jmindel.fbuparstagram.model.Comment;
 import com.jmindel.fbuparstagram.model.Post;
+import com.jmindel.fbuparstagram.scrolling.CommentLayout;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,7 +29,7 @@ public class DetailActivity extends AppCompatActivity {
     CommentAdapter commentAdapter;
 
     @BindView(R.id.rvPost)      RecyclerView rvPost;
-    @BindView(R.id.rvComments)  RecyclerView rvComments;
+    @BindView(R.id.clComments)  CommentLayout clComments;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

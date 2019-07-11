@@ -34,8 +34,6 @@ public class HomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_home);
         ButterKnife.bind(this);
 
-        // TODO: Migrate all timeline data fetching logic to a wrapped object here so that data persists
-        // TODO: Migrate logout actions to a wrapper object as well
         fragmentManager = getSupportFragmentManager();
         timelineFragment = new TimelineFragment();
         composeFragment = new ComposeFragment();

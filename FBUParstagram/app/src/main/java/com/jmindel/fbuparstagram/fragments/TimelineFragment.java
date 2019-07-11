@@ -18,7 +18,7 @@ import butterknife.ButterKnife;
 
 public class TimelineFragment extends Fragment {
 
-    @BindView(R.id.pvPosts)
+    @BindView(R.id.plPosts)
     PostLayout pvPosts;
 
     @Nullable

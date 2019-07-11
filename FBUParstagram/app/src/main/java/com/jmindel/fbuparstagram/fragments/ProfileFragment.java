@@ -17,7 +17,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class ProfileFragment extends Fragment {
-    @BindView(R.id.pvPosts)
+    @BindView(R.id.plPosts)
     PostLayout pvPosts;
 
     @Nullable
