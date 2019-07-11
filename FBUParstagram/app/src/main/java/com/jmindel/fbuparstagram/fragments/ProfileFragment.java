@@ -19,6 +19,7 @@ import com.jmindel.fbuparstagram.R;
 import com.jmindel.fbuparstagram.model.Post;
 import com.jmindel.fbuparstagram.scrolling.PostGridLayout;
 import com.jmindel.fbuparstagram.scrolling.PostLayout;
+import com.parse.ParseFile;
 import com.parse.ParseUser;
 
 import butterknife.BindView;
@@ -85,7 +86,7 @@ public class ProfileFragment extends Fragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == Activity.RESULT_OK && requestCode == CameraManager.CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE) {
-            user.put("profileImage", cameraManager.getPhotoFile());
+            user.put("profileImage", new ParseFile(cameraManager.getPhotoFile()));
             Bitmap scaledImage = cameraManager.fixOrientationAndSize();
             ivProfile.setImageBitmap(scaledImage);
         }

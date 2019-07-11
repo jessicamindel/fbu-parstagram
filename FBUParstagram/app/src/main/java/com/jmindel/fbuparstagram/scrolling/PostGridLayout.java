@@ -73,7 +73,7 @@ public class PostGridLayout extends EndlessScrollRefreshLayout<Post, PostGridAda
     @Override
     public GridLayoutManager makeGridLayoutManager() {
         rvItems.setHasFixedSize(true);
-        return new GridLayoutManager(getContext(), 4); // FIXME: Is this number right?
+        return new GridLayoutManager(getContext(), 4);
     }
 
     @Override
