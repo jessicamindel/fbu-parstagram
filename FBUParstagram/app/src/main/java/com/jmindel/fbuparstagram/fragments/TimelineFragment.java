@@ -31,9 +31,7 @@ public class TimelineFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         ButterKnife.bind(this, view);
-
-        pvPosts.setHandler(new PostLayout.Handler());
-        pvPosts.runQuery();
+        pvPosts.load();
     }
 
     // File file = new File(path); --> ParseFile parseFile = new ParseFile(file);

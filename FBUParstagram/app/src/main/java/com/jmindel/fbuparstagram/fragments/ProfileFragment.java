@@ -39,6 +39,6 @@ public class ProfileFragment extends Fragment {
                 return query;
             }
         });
-        pvPosts.runQuery();
+        pvPosts.load();
     }
 }

@@ -57,7 +57,7 @@ public abstract class EndlessScrollRefreshLayout<Item, VH extends RecyclerView.V
             @Override
             public void onLoadMore(int page, int totalItemsCount, RecyclerView view) {
                 // Triggered only when new data needs to be appended to the list
-                load(false);
+                loadMore();
             }
         };
         // Add the scroll listener to RecyclerView
@@ -69,13 +69,14 @@ public abstract class EndlessScrollRefreshLayout<Item, VH extends RecyclerView.V
             public void onRefresh() {
                 items.clear();
                 adapter.notifyDataSetChanged();
-                load(true);
+                load();
             }
         });
         swipeContainer.setColorSchemeResources(getColorScheme());
     }
 
-    public abstract void load(boolean resetItems);
+    public abstract void load();
+    public abstract void loadMore();
 
     public abstract RecyclerView.Adapter<VH> makeAdapter();
 

@@ -4,101 +4,81 @@ import android.app.Activity;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
 import android.util.Log;
-import android.widget.FrameLayout;
 
 import com.jmindel.fbuparstagram.adapters.PostAdapter;
 import com.jmindel.fbuparstagram.model.Post;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
+public class PostLayout extends EndlessScrollRefreshLayout<Post, PostAdapter.ViewHolder> {
 
-public class PostLayout extends FrameLayout {
-
-    private Handler handler;
-    private PostAdapter adapter;
-    private List<Post> posts;
-    private EndlessRecyclerViewScrollListener scrollListener;
-
-    @BindView(R.id.rvItems)         RecyclerView rvPosts;
-    @BindView(R.id.swipeContainer)  SwipeRefreshLayout swipeContainer;
-
-    public PostLayout(@NonNull Context context) {
-        super(context);
-        init();
-    }
-
-    public PostLayout(@NonNull Context context, @Nullable AttributeSet attrs) {
-        super(context, attrs);
-        init();
-    }
-
-    public PostLayout(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
-        super(context, attrs, defStyleAttr);
-        init();
-    }
-
-    private void init() {
-        inflate(getContext(), R.layout.layout_endless_scroll_refresh, this);
-        ButterKnife.bind(this, this);
-
-        // Configure RecyclerView
-        posts = new ArrayList<>();
-        adapter = new PostAdapter((Activity) getContext(), posts);
-
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
-        rvPosts.setAdapter(adapter);
-        rvPosts.setLayoutManager(linearLayoutManager);
-        rvPosts.addItemDecoration(new EdgeDecorator(32, true, false));
-
-        // Configure infinite scrolling
-        scrollListener = new EndlessRecyclerViewScrollListener(linearLayoutManager) {
-            @Override
-            public void onLoadMore(int page, int totalItemsCount, RecyclerView view) {
-                // Triggered only when new data needs to be appended to the list
-                // Add whatever code is needed to append new items to the bottom of the list
-                Post.Query query = handler.makeQuery();
-                query.whereLessThan(Post.KEY_CREATED_AT, posts.get(posts.size() - 1).getCreatedAt());
-                runQuery(query, false);
-            }
-        };
-        // Add the scroll listener to RecyclerView
-        rvPosts.addOnScrollListener(scrollListener);
-
-        // Add swipe to refresh actions
-        swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                posts.clear();
-                adapter.notifyDataSetChanged();
-                runQuery();
-            }
-        });
-        swipeContainer.setColorSchemeResources(android.R.color.holo_blue_bright,
-                android.R.color.holo_green_light,
-                android.R.color.holo_orange_light,
-                android.R.color.holo_red_light);
-    }
+    protected Handler handler;
 
     public void setHandler(Handler handler) {
         this.handler = handler;
     }
 
-    public Post getPost(int i) {
-        return this.posts.get(i);
+    public PostLayout(@NonNull Context context) {
+        super(context);
+        setHandler(new Handler());
     }
 
-    public void runQuery() {
-        runQuery(true);
+    public PostLayout(@NonNull Context context, @Nullable AttributeSet attrs) {
+        super(context, attrs);
+        setHandler(new Handler());
+    }
+
+    public PostLayout(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+        super(context, attrs, defStyleAttr);
+        setHandler(new Handler());
+    }
+
+    @Override
+    public void load() {
+        runQuery(handler.makeQuery(), true);
+    }
+
+    @Override
+    public void loadMore() {
+        Post.Query query = handler.makeQuery();
+        query.whereLessThan(Post.KEY_CREATED_AT, items.get(items.size() - 1).getCreatedAt());
+        runQuery(query, false);
+    }
+
+    @Override
+    public RecyclerView.Adapter<PostAdapter.ViewHolder> makeAdapter() {
+        // FIXME: What if it's in a fragment?
+        return new PostAdapter((Activity) getContext(), items);
+    }
+
+    @Override
+    public int[] getColorScheme() {
+        return new int[] {
+            android.R.color.holo_blue_bright,
+            android.R.color.holo_green_light,
+            android.R.color.holo_orange_light,
+            android.R.color.holo_red_light
+        };
+    }
+
+    @Override
+    public int getEdgePadding() {
+        return 32;
+    }
+
+    @Override
+    public boolean shouldPadTopEdge() {
+        return true;
+    }
+
+    @Override
+    public boolean shouldPadBottomEdge() {
+        return false;
     }
 
     public void runQuery(boolean resetPosts) {
@@ -116,8 +96,8 @@ public class PostLayout extends FrameLayout {
                                 + " : username = " + objects.get(i).getUser().getUsername()
                         );
                     }
-                    if (resetPosts) posts.clear();
-                    posts.addAll(objects);
+                    if (resetPosts) items.clear();
+                    items.addAll(objects);
                     adapter.notifyDataSetChanged();
                 } else {
                     e.printStackTrace();
