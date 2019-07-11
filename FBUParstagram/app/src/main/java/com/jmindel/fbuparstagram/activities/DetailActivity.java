@@ -4,13 +4,19 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 
 import com.jmindel.fbuparstagram.R;
-import com.jmindel.fbuparstagram.adapters.CommentAdapter;
 import com.jmindel.fbuparstagram.adapters.PostAdapter;
 import com.jmindel.fbuparstagram.model.Comment;
 import com.jmindel.fbuparstagram.model.Post;
 import com.jmindel.fbuparstagram.scrolling.CommentLayout;
+import com.parse.FindCallback;
+import com.parse.ParseException;
+import com.parse.ParseUser;
+import com.parse.SaveCallback;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,13 +29,13 @@ public class DetailActivity extends AppCompatActivity {
     public static final String KEY_POST_ID = "postId";
 
     List<Post> posts;
-    List<Comment> comments;
 
     PostAdapter postAdapter;
-    CommentAdapter commentAdapter;
 
     @BindView(R.id.rvPost)      RecyclerView rvPost;
     @BindView(R.id.clComments)  CommentLayout clComments;
+    @BindView(R.id.bComment)    Button bComment;
+    @BindView(R.id.etComment)   EditText etComment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,12 +54,38 @@ public class DetailActivity extends AppCompatActivity {
         rvPost.setLayoutManager(postLayoutManager);
         rvPost.setAdapter(postAdapter);
 
-        comments = new ArrayList<>();
-        commentAdapter = new CommentAdapter(this, comments);
-        // TODO: Set up comment view
+        bComment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String body = etComment.getText().toString();
+                if (!body.equals("")) {
+                    Comment comment = new Comment();
+                    comment.setBody(body);
+                    comment.setPost(posts.get(0));
+                    comment.setUser(ParseUser.getCurrentUser());
+                    comment.saveInBackground(new SaveCallback() {
+                        @Override
+                        public void done(ParseException e) {
+                            etComment.setText("");
+                            clComments.load();
+                            // TODO: Clean this up
+                        }
+                    });
+                } else { /* TODO */ }
+            }
+        });
 
-        // TODO: Create a way to post comments
-
-        // TODO: Probably wrap the entire thing in a ScrollView
+        String currPostId = getIntent().getStringExtra(KEY_POST_ID);
+        Post.Query currPostQuery = new Post.Query().withUser();
+        currPostQuery.whereEqualTo(Post.KEY_ID, currPostId);
+        currPostQuery.findInBackground(new FindCallback<Post>() {
+            @Override
+            public void done(List<Post> objects, ParseException e) {
+                posts.add(objects.get(0));
+                postAdapter.notifyItemInserted(0);
+                clComments.setPost(posts.get(0));
+                clComments.load();
+            }
+        });
     }
 }

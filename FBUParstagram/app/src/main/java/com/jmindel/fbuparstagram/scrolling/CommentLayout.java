@@ -9,8 +9,15 @@ import android.util.AttributeSet;
 
 import com.jmindel.fbuparstagram.adapters.CommentAdapter;
 import com.jmindel.fbuparstagram.model.Comment;
+import com.jmindel.fbuparstagram.model.Post;
+import com.parse.FindCallback;
+import com.parse.ParseException;
+
+import java.util.List;
 
 public class CommentLayout extends EndlessScrollRefreshLayout<Comment, CommentAdapter.ViewHolder> {
+
+    private Post post;
 
     public CommentLayout(@NonNull Context context) {
         super(context);
@@ -24,14 +31,46 @@ public class CommentLayout extends EndlessScrollRefreshLayout<Comment, CommentAd
         super(context, attrs, defStyleAttr);
     }
 
+    public void setPost(Post post) {
+        this.post = post;
+    }
+
     @Override
     public void load() {
-        // TODO
+        Comment.Query query = new Comment.Query().withPost().withUser();
+        query.whereEqualTo(Comment.KEY_POST, post);
+        query.findInBackground(new FindCallback<Comment>() {
+            @Override
+            public void done(List<Comment> objects, ParseException e) {
+                if (e != null) {
+
+                } else {
+                    items.clear();
+                    items.addAll(objects);
+                    adapter.notifyDataSetChanged();
+                    rvItems.scrollToPosition(0);
+                }
+                swipeContainer.setRefreshing(false);
+            }
+        });
     }
 
     @Override
     public void loadMore() {
-        // TODO
+        Comment.Query query = new Comment.Query().withPost().withUser();
+        query.whereEqualTo(Comment.KEY_POST, post);
+        query.whereLessThan(Comment.KEY_CREATED_AT, items.get(items.size() - 1).getCreatedAt());
+        query.findInBackground(new FindCallback<Comment>() {
+            @Override
+            public void done(List<Comment> objects, ParseException e) {
+                if (e != null) {
+
+                } else {
+                    items.addAll(objects);
+                    adapter.notifyDataSetChanged();
+                }
+            }
+        });
     }
 
     @Override

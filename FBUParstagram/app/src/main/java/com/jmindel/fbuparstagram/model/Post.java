@@ -14,6 +14,7 @@ public class Post extends ParseObject implements Serializable {
     public static final String KEY_IMAGE = "image";
     public static final String KEY_USER = "user";
     public static final String KEY_CREATED_AT = "createdAt";
+    public static final String KEY_ID = "objectId";
 
     public String getCaption() {
         return getString(KEY_CAPTION);
