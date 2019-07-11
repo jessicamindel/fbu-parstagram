@@ -1,4 +1,4 @@
-package com.jmindel.fbuparstagram;
+package com.jmindel.fbuparstagram.scrolling;
 
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;

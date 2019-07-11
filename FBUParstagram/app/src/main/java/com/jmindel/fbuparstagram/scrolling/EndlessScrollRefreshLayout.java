@@ -1,4 +1,4 @@
-package com.jmindel.fbuparstagram;
+package com.jmindel.fbuparstagram.scrolling;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -8,6 +8,8 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
 import android.widget.FrameLayout;
+
+import com.jmindel.fbuparstagram.R;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,8 +23,8 @@ public abstract class EndlessScrollRefreshLayout<Item, VH extends RecyclerView.V
     protected List<Item> items;
     protected EndlessRecyclerViewScrollListener scrollListener;
 
-    @BindView(R.id.rvItems)         RecyclerView rvItems;
-    @BindView(R.id.swipeContainer)  SwipeRefreshLayout swipeContainer;
+    @BindView(R.id.rvItems)         protected RecyclerView rvItems;
+    @BindView(R.id.swipeContainer)  protected SwipeRefreshLayout swipeContainer;
 
     public EndlessScrollRefreshLayout(@NonNull Context context) {
         super(context);

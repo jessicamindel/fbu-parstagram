@@ -1,4 +1,4 @@
-package com.jmindel.fbuparstagram;
+package com.jmindel.fbuparstagram.scrolling;
 
 import android.app.Activity;
 import android.content.Context;

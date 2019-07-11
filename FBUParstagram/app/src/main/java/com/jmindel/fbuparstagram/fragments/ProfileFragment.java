@@ -8,7 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.jmindel.fbuparstagram.PostLayout;
+import com.jmindel.fbuparstagram.scrolling.PostLayout;
 import com.jmindel.fbuparstagram.R;
 import com.jmindel.fbuparstagram.model.Post;
 import com.parse.ParseUser;
