@@ -14,14 +14,14 @@ A simplified Instagram clone built with Parse.
 - [x] User can take a photo, add a caption, and post it to "Instagram" (2 points)
 - [x] User can view the last 20 posts submitted to "Instagram" (2 points)
 - [x] User can pull to refresh the last 20 posts submitted to "Instagram" (1 points)
-- [ ] User can tap a post to view post details, including timestamp and caption. (2 points)
+- [x] User can tap a post to view post details, including timestamp and caption. (2 points)
 
 ## Stretch Stories
 - [ ] Style the login page to look like the real Instagram login page. (2 points)
 - [ ] Style the feed to look like the real Instagram feed. (2 points)
 - [x] The user should switch between different tabs - viewing all posts (feed view), capture (camera and photo gallery view) and profile tabs (posts made) using fragments and a Bottom Navigation View. (2 points)
 - [x] User can load more posts once he or she reaches the bottom of the feed using endless scrolling. (2 points)
-- [ ] Show the username and creation time for each post (1 point)
+- [x] Show the username and creation time for each post (1 point)
 - [ ] After the user submits a new post, show an indeterminate progress bar while the post is being uploaded to Parse (1 point)
 - [ ] User Profiles:
   - [ ] Allow the logged in user to add a profile photo (1 point)

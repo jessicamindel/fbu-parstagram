@@ -20,6 +20,7 @@ import com.bumptech.glide.Glide;
 import com.jmindel.fbuparstagram.R;
 import com.jmindel.fbuparstagram.Utils;
 import com.jmindel.fbuparstagram.activities.DetailActivity;
+import com.jmindel.fbuparstagram.activities.ProfileActivity;
 import com.jmindel.fbuparstagram.model.Comment;
 import com.jmindel.fbuparstagram.model.Like;
 import com.jmindel.fbuparstagram.model.Post;
@@ -158,6 +159,15 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
                             }
                         })
                         .show();
+            }
+        });
+
+        viewHolder.ivProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(activity, ProfileActivity.class);
+                intent.putExtra(ProfileActivity.KEY_USER_ID, post.getUser().getObjectId());
+                activity.startActivity(intent);
             }
         });
 

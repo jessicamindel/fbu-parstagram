@@ -15,7 +15,7 @@
         app:srcCompat="@android:color/black" />
 
     <android.support.v7.widget.CardView
-        android:id="@+id/cardView"
+        android:id="@+id/cvProfileImage"
         android:layout_width="128dp"
         android:layout_height="128dp"
         app:cardCornerRadius="1000dp"
@@ -51,7 +51,7 @@
         android:textSize="24dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cardView" />
+        app:layout_constraintTop_toBottomOf="@+id/cvProfileImage" />
 
     <com.jmindel.fbuparstagram.scrolling.PostLayout
         android:id="@+id/plPosts"
