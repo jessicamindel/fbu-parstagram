@@ -11,34 +11,36 @@ import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.AttributeSet;
 import android.util.Log;
 
-import com.jmindel.fbuparstagram.adapters.PostAdapter;
+import com.jmindel.fbuparstagram.adapters.PostGridAdapter;
 import com.jmindel.fbuparstagram.model.Post;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 
 import java.util.List;
 
-public class PostLayout extends EndlessScrollRefreshLayout<Post, PostAdapter.ViewHolder> {
+public class PostGridLayout extends EndlessScrollRefreshLayout<Post, PostGridAdapter.ViewHolder> {
 
-    protected Handler handler;
+    // TODO: Refactor to extract handler + query functionality from PostGridLayout and PostLayout into separate class
 
-    public void setHandler(Handler handler) {
+    protected PostLayout.Handler handler;
+
+    public void setHandler(PostLayout.Handler handler) {
         this.handler = handler;
     }
 
-    public PostLayout(@NonNull Context context) {
+    public PostGridLayout(@NonNull Context context) {
         super(context);
-        setHandler(new Handler());
+        setHandler(new PostLayout.Handler());
     }
 
-    public PostLayout(@NonNull Context context, @Nullable AttributeSet attrs) {
+    public PostGridLayout(@NonNull Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
-        setHandler(new Handler());
+        setHandler(new PostLayout.Handler());
     }
 
-    public PostLayout(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+    public PostGridLayout(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        setHandler(new Handler());
+        setHandler(new PostLayout.Handler());
     }
 
     @Override
@@ -54,24 +56,24 @@ public class PostLayout extends EndlessScrollRefreshLayout<Post, PostAdapter.Vie
     }
 
     @Override
-    public RecyclerView.Adapter<PostAdapter.ViewHolder> makeAdapter() {
-        // FIXME: What if it's in a fragment?
-        return new PostAdapter((Activity) getContext(), items);
+    public RecyclerView.Adapter<PostGridAdapter.ViewHolder> makeAdapter() {
+        return new PostGridAdapter((Activity) getContext(), items);
     }
 
     @Override
     public LayoutManagerType getLayoutManagerType() {
-        return LayoutManagerType.Linear;
+        return LayoutManagerType.Grid;
     }
 
     @Override
     public LinearLayoutManager makeLinearLayoutManager() {
-        return new LinearLayoutManager(getContext());
+        return null;
     }
 
     @Override
     public GridLayoutManager makeGridLayoutManager() {
-        return null;
+        rvItems.setHasFixedSize(true);
+        return new GridLayoutManager(getContext(), 4); // FIXME: Is this number right?
     }
 
     @Override
@@ -82,21 +84,21 @@ public class PostLayout extends EndlessScrollRefreshLayout<Post, PostAdapter.Vie
     @Override
     public int[] getColorScheme() {
         return new int[] {
-            android.R.color.holo_blue_bright,
-            android.R.color.holo_green_light,
-            android.R.color.holo_orange_light,
-            android.R.color.holo_red_light
+                android.R.color.holo_blue_bright,
+                android.R.color.holo_green_light,
+                android.R.color.holo_orange_light,
+                android.R.color.holo_red_light
         };
     }
 
     @Override
     public int getEdgePadding() {
-        return 32;
+        return 0;
     }
 
     @Override
     public boolean shouldPadTopEdge() {
-        return true;
+        return false;
     }
 
     @Override

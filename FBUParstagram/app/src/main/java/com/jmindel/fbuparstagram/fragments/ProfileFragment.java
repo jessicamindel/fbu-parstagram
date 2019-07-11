@@ -17,6 +17,7 @@ import android.widget.TextView;
 import com.jmindel.fbuparstagram.CameraManager;
 import com.jmindel.fbuparstagram.R;
 import com.jmindel.fbuparstagram.model.Post;
+import com.jmindel.fbuparstagram.scrolling.PostGridLayout;
 import com.jmindel.fbuparstagram.scrolling.PostLayout;
 import com.parse.ParseUser;
 
@@ -24,7 +25,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class ProfileFragment extends Fragment {
-    @BindView(R.id.plPosts)         PostLayout pvPosts;
+    @BindView(R.id.plPosts)         PostGridLayout pvPosts;
     @BindView(R.id.tvUsername)      TextView tvUsername;
     @BindView(R.id.cvProfileImage)  CardView cvProfileImage;
     @BindView(R.id.ivProfile)       ImageView ivProfile;

@@ -4,8 +4,10 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.AttributeSet;
 import android.widget.FrameLayout;
 
@@ -49,19 +51,50 @@ public abstract class EndlessScrollRefreshLayout<Item, VH extends RecyclerView.V
         items = new ArrayList<>();
         adapter = makeAdapter();
 
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         rvItems.setAdapter(adapter);
-        rvItems.setLayoutManager(linearLayoutManager);
         rvItems.addItemDecoration(new EdgeDecorator(getEdgePadding(), shouldPadTopEdge(), shouldPadBottomEdge()));
 
-        // Configure infinite scrolling
-        scrollListener = new EndlessRecyclerViewScrollListener(linearLayoutManager) {
-            @Override
-            public void onLoadMore(int page, int totalItemsCount, RecyclerView view) {
-                // Triggered only when new data needs to be appended to the list
-                loadMore();
-            }
-        };
+        // LEARN: There's got to be a better and far more properly polymorphic way to do this...
+        switch (getLayoutManagerType()) {
+            case Grid:
+                GridLayoutManager gLayoutManager = makeGridLayoutManager();
+                rvItems.setLayoutManager(gLayoutManager);
+                // Configure infinite scrolling
+                scrollListener = new EndlessRecyclerViewScrollListener(gLayoutManager) {
+                    @Override
+                    public void onLoadMore(int page, int totalItemsCount, RecyclerView view) {
+                        // Triggered only when new data needs to be appended to the list
+                        loadMore();
+                    }
+                };
+                break;
+            case StaggeredGrid:
+                StaggeredGridLayoutManager sgLayoutManager = makeStaggeredGridLayoutManager();
+                rvItems.setLayoutManager(sgLayoutManager);
+                // Configure infinite scrolling
+                scrollListener = new EndlessRecyclerViewScrollListener(sgLayoutManager) {
+                    @Override
+                    public void onLoadMore(int page, int totalItemsCount, RecyclerView view) {
+                        // Triggered only when new data needs to be appended to the list
+                        loadMore();
+                    }
+                };
+                break;
+            default:
+            case Linear:
+                LinearLayoutManager lLayoutManager = makeLinearLayoutManager();
+                rvItems.setLayoutManager(lLayoutManager);
+                // Configure infinite scrolling
+                scrollListener = new EndlessRecyclerViewScrollListener(lLayoutManager) {
+                    @Override
+                    public void onLoadMore(int page, int totalItemsCount, RecyclerView view) {
+                        // Triggered only when new data needs to be appended to the list
+                        loadMore();
+                    }
+                };
+                break;
+        }
+
         // Add the scroll listener to RecyclerView
         rvItems.addOnScrollListener(scrollListener);
 
@@ -82,9 +115,18 @@ public abstract class EndlessScrollRefreshLayout<Item, VH extends RecyclerView.V
 
     public abstract RecyclerView.Adapter<VH> makeAdapter();
 
+    public abstract LayoutManagerType getLayoutManagerType();
+    public abstract LinearLayoutManager makeLinearLayoutManager();
+    public abstract GridLayoutManager makeGridLayoutManager();
+    public abstract StaggeredGridLayoutManager makeStaggeredGridLayoutManager();
+
     public abstract int[] getColorScheme();
 
     public abstract int getEdgePadding();
     public abstract boolean shouldPadTopEdge();
     public abstract boolean shouldPadBottomEdge();
+
+    public enum LayoutManagerType {
+        Linear, Grid, StaggeredGrid
+    }
 }

@@ -4,7 +4,10 @@ import android.app.Activity;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.widget.Toast;
@@ -81,6 +84,26 @@ public class CommentLayout extends EndlessScrollRefreshLayout<Comment, CommentAd
     public RecyclerView.Adapter<CommentAdapter.ViewHolder> makeAdapter() {
         // FIXME: Might not be an activity?
         return new CommentAdapter((Activity) getContext(), items);
+    }
+
+    @Override
+    public LayoutManagerType getLayoutManagerType() {
+        return LayoutManagerType.Linear;
+    }
+
+    @Override
+    public LinearLayoutManager makeLinearLayoutManager() {
+        return new LinearLayoutManager(getContext());
+    }
+
+    @Override
+    public GridLayoutManager makeGridLayoutManager() {
+        return null;
+    }
+
+    @Override
+    public StaggeredGridLayoutManager makeStaggeredGridLayoutManager() {
+        return null;
     }
 
     @Override
