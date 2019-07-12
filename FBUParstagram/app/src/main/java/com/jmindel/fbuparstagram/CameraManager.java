@@ -19,7 +19,8 @@ import java.io.IOException;
 
 public class CameraManager {
 
-    public static final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 1034;
+    public static final int CAPTURE_IMAGE_REQUEST_CODE = 1034;
+    public final static int PICK_PHOTO_REQUEST_CODE = 1046;
     public static final int IMG_WIDTH = 600;
     private File photoFile;
     private String photoFileName;
@@ -47,7 +48,7 @@ public class CameraManager {
         // So as long as the result is not null, it's safe to use the intent.
         if (intent.resolveActivity(fragment.getContext().getPackageManager()) != null) {
             // Start the image capture intent to take photo
-            fragment.startActivityForResult(intent, CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE);
+            fragment.startActivityForResult(intent, CAPTURE_IMAGE_REQUEST_CODE);
         }
     }
 
@@ -129,5 +130,27 @@ public class CameraManager {
 
     public File getPhotoFile() {
         return photoFile;
+    }
+
+    // Trigger gallery selection for a photo
+    public void pickPhoto() {
+        // Create intent for picking a photo from the gallery
+        Intent intent = new Intent(Intent.ACTION_PICK,
+                MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+
+        // If you call startActivityForResult() using an intent that no app can handle, your app will crash.
+        // So as long as the result is not null, it's safe to use the intent.
+        if (intent.resolveActivity(fragment.getContext().getPackageManager()) != null) {
+            // Bring up gallery to select a photo
+            fragment.startActivityForResult(intent, PICK_PHOTO_REQUEST_CODE);
+        }
+    }
+
+    /** @source https://stackoverflow.com/questions/31227547/how-to-upload-image-to-parse-in-android */
+    public byte[] bitmapToBytes(Bitmap bitmap) {
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
+        byte[] image = stream.toByteArray();
+        return image;
     }
 }

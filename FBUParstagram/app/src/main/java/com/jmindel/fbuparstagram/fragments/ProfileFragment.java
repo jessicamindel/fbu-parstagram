@@ -42,16 +42,16 @@ public class ProfileFragment extends Fragment {
 
     CameraManager cameraManager;
     ParseUser user;
-    boolean canSetPhoto;
+    boolean isLoggedInUser;
 
     public ProfileFragment() {
         user = ParseUser.getCurrentUser();
-        canSetPhoto = true;
+        isLoggedInUser = true;
     }
 
     public void setUser(ParseUser user) {
         this.user = user;
-        canSetPhoto = false;
+        isLoggedInUser = false;
     }
 
     @Nullable
@@ -66,14 +66,8 @@ public class ProfileFragment extends Fragment {
         ButterKnife.bind(this, view);
 
         tvUsername.setText(user.getUsername());
-        bLogOut.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                logOut();
-            }
-        });
 
-        if (canSetPhoto) {
+        if (isLoggedInUser) {
             cameraManager = new CameraManager("profile.jpg", this);
             cvProfileImage.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -81,6 +75,15 @@ public class ProfileFragment extends Fragment {
                     changeProfileImage();
                 }
             });
+
+            bLogOut.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    logOut();
+                }
+            });
+        } else {
+            bLogOut.setVisibility(View.GONE);
         }
 
         Utils.loadProfileImage(this.getContext(), ivProfile, user);
@@ -102,7 +105,7 @@ public class ProfileFragment extends Fragment {
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (resultCode == Activity.RESULT_OK && requestCode == CameraManager.CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE) {
+        if (resultCode == Activity.RESULT_OK && requestCode == CameraManager.CAPTURE_IMAGE_REQUEST_CODE) {
             user.put("profileImage", new ParseFile(cameraManager.getPhotoFile()));
             user.saveInBackground(new SaveCallback() {
                 @Override

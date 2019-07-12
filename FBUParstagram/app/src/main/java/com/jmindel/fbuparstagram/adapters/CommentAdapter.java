@@ -1,6 +1,7 @@
 package com.jmindel.fbuparstagram.adapters;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -11,6 +12,7 @@ import android.widget.TextView;
 
 import com.jmindel.fbuparstagram.R;
 import com.jmindel.fbuparstagram.Utils;
+import com.jmindel.fbuparstagram.activities.ProfileActivity;
 import com.jmindel.fbuparstagram.model.Comment;
 
 import java.util.List;
@@ -38,9 +40,19 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
-        Comment comment = comments.get(i);
+        final Comment comment = comments.get(i);
         viewHolder.tvUsername.setText(comment.getUser().getUsername());
         viewHolder.tvBody.setText(comment.getBody());
+
+        viewHolder.ivProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(activity, ProfileActivity.class);
+                intent.putExtra(ProfileActivity.KEY_USER_ID, comment.getUser().getObjectId());
+                activity.startActivity(intent);
+            }
+        });
+
         Utils.loadProfileImage(activity, viewHolder.ivProfile, comment.getUser());
     }
 

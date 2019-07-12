@@ -3,7 +3,9 @@ package com.jmindel.fbuparstagram.fragments;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -24,12 +26,15 @@ import com.parse.ParseFile;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
 
+import java.io.IOException;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class ComposeFragment extends Fragment {
     private CameraManager cameraManager;
     String photoFileName = "photo.jpg";
+    private ParseFile imageFile;
 
     public static final String KEY_POST = "post";
 
@@ -55,8 +60,7 @@ public class ComposeFragment extends Fragment {
         bFromLibrary.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // TODO
-                // openLibrary();
+                cameraManager.pickPhoto();
             }
         });
         bFromCamera.setOnClickListener(new View.OnClickListener() {
@@ -69,9 +73,9 @@ public class ComposeFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 String caption = etCaption.getText().toString();
-                if (cameraManager.getPhotoFile() != null && !caption.equals("")) {
+                if (imageFile != null && !caption.equals("")) {
                     Post post = new Post();
-                    post.setImage(new ParseFile(cameraManager.getPhotoFile()));
+                    post.setImage(imageFile);
                     post.setCaption(caption);
                     post.setUser(ParseUser.getCurrentUser());
                     post.saveInBackground(new SaveCallback() {
@@ -97,15 +101,33 @@ public class ComposeFragment extends Fragment {
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        if (requestCode == CameraManager.CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE) {
+        if (requestCode == CameraManager.CAPTURE_IMAGE_REQUEST_CODE) {
             if (resultCode == Activity.RESULT_OK) {
-                Log.d("MakePostActivity", "Successfully took photo");
+                Log.d("ComposeFragment", "Successfully took photo");
                 // by this point we have the camera photo on disk
                 Bitmap scaledImage = cameraManager.fixOrientationAndSize();
                 // Load the taken image into a preview
                 ivImage.setImageBitmap(scaledImage);
+                imageFile = new ParseFile(cameraManager.getPhotoFile());
             } else if (resultCode == Activity.RESULT_CANCELED) {
-                Log.d("MakePostActivity", "Canceled open camera");
+                Log.d("ComposeFragment", "Canceled open camera");
+            }
+        } else if (requestCode == CameraManager.PICK_PHOTO_REQUEST_CODE) {
+            if (resultCode == Activity.RESULT_OK && data != null) {
+                Uri photoUri = data.getData();
+                try {
+                    Bitmap selectedImage = MediaStore.Images.Media.getBitmap(getContext().getContentResolver(), photoUri);
+                    ivImage.setImageBitmap(selectedImage);
+                    imageFile = new ParseFile(cameraManager.bitmapToBytes(selectedImage));
+                } catch (IOException e) {
+                    Log.e("ComposeFragment", "Failed to get image from library");
+                    e.printStackTrace();
+                    Toast.makeText(getContext(), "Failed to get image from library", Toast.LENGTH_LONG).show();
+                }
+            } else if (resultCode == Activity.RESULT_CANCELED) {
+                Log.d("ComposeFragment", "Canceled open library");
+            } else {
+                Log.e("ComposeFragment", "No data passed from image library");
             }
         }
     }
