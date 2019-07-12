@@ -2,7 +2,7 @@
 # Parstagram
 A simplified Instagram clone built with Parse.
 
-[INSERT GIF DEMO HERE]
+![](https://github.com/jessicamindel/fbu-parstagram/raw/master/demo.mp4)
 
 # Assignment Checkpoints
 
