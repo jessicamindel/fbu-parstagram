@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.jmindel.fbuparstagram.R;
+import com.jmindel.fbuparstagram.Utils;
 import com.jmindel.fbuparstagram.model.Comment;
 
 import java.util.List;
@@ -19,8 +20,8 @@ import butterknife.ButterKnife;
 
 public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHolder> {
 
-    Activity activity;
-    List<Comment> comments;
+    private Activity activity;
+    private List<Comment> comments;
 
     public CommentAdapter(Activity activity, List<Comment> comments) {
         this.activity = activity;
@@ -40,7 +41,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
         Comment comment = comments.get(i);
         viewHolder.tvUsername.setText(comment.getUser().getUsername());
         viewHolder.tvBody.setText(comment.getBody());
-        // TODO: Load profile image
+        Utils.loadProfileImage(activity, viewHolder.ivProfile, comment.getUser());
     }
 
     @Override

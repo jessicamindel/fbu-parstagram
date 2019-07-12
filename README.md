@@ -19,21 +19,24 @@ A simplified Instagram clone built with Parse.
 ## Stretch Stories
 - [ ] Style the login page to look like the real Instagram login page. (2 points)
 - [ ] Style the feed to look like the real Instagram feed. (2 points)
+  - [x] I styled it to look somewhat like Instagram, but as a CardView instead.
 - [x] The user should switch between different tabs - viewing all posts (feed view), capture (camera and photo gallery view) and profile tabs (posts made) using fragments and a Bottom Navigation View. (2 points)
 - [x] User can load more posts once he or she reaches the bottom of the feed using endless scrolling. (2 points)
 - [x] Show the username and creation time for each post (1 point)
 - [ ] After the user submits a new post, show an indeterminate progress bar while the post is being uploaded to Parse (1 point)
-- [ ] User Profiles:
-  - [ ] Allow the logged in user to add a profile photo (1 point)
-  - [ ] Display the profile photo with each post (1 points)
-  - [ ] Tapping on a post's username or profile photo goes to that user's profile page and shows a grid view of the user's posts (2 points)
+- [x] User Profiles:
+  - [x] Allow the logged in user to add a profile photo (1 point)
+  - [x] Display the profile photo with each post (1 points)
+  - [x] Tapping on a post's username or profile photo goes to that user's profile page and shows a grid view of the user's posts (2 points)
 - [x] User can comment on a post and see all comments for each post in the post details screen. (2 points)
 - [x] User can like a post and see number of likes for each post in the post details screen. (2 points)
 
 ## My Own Stories
 - [x] Use Butterknife to reduce boilerplate
-- [ ] Use ParseLive to automatically update on a new post
+- [ ] Use ParseLive to automatically update content on a new post
+  - [ ] Retain posts in timeline instead of reloading every time (not quite SQL persistence)
 - [ ] Add user follow functionality
+  - [x] Finished the backend, but not the frontend
 - [ ] User can choose image filters before posting
 - [ ] User can annotate and draw on images...
   - [ ] With brushes
@@ -43,5 +46,3 @@ A simplified Instagram clone built with Parse.
   - [ ] The repost links back to the original post despite having a potentially different image
 - [ ] Add fun scroll animations (e.g. background color fade on scroll, segmented scrolling, etc.)
 - [ ] Implement search features
-
-Oh boy. So I've hit a rather ugly point: I need to separate PostLayout into a PostManager and an EndlessScrollRefreshLayout. And I really, really don't want to. I have a lot left to finish in this app as a whole... and I'm concerned about it at this point.

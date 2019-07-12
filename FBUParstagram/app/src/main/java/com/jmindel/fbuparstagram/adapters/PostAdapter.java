@@ -67,7 +67,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
         viewHolder.tvCaption.setText(post.getCaption());
         viewHolder.tvDate.setText(Utils.getRelativeTimeAgo(post.getCreatedAt()));
         Glide.with(activity).load(post.getImage().getUrl()).into(viewHolder.ivImage);
-        // TODO: Profile pictures
+        Utils.loadProfileImage(activity, viewHolder.ivProfile, post.getUser());
 
         // Route card click to post details
         viewHolder.cvCard.setOnClickListener(new View.OnClickListener() {

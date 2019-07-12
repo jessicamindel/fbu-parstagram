@@ -84,15 +84,10 @@ public class ComposeFragment extends Fragment {
                             } else {
                                 Log.d("ComposeFragment", "Posted successfully!");
                                 Toast.makeText(getContext(), "Posted successfully!", Toast.LENGTH_SHORT).show();
-                                // TODO: Take user to their new post, and on close, go to TimelineFragment
+                                etCaption.setText("");
                             }
                         }
                     });
-
-                    // SHOULD: bundle.putSerializable(KEY_POST, post)
-//                    getIntent().putExtra(KEY_POST, post);
-//                    setResult(HomeActivity.MAKE_POST_REQUEST_CODE, getIntent());
-//                    finish();
                 } else {
                     Toast.makeText(getContext(), "Add an image and caption before posting.", Toast.LENGTH_LONG).show();
                 }

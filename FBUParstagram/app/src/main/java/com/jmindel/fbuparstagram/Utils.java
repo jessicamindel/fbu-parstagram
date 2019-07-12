@@ -1,7 +1,15 @@
 package com.jmindel.fbuparstagram;
 
+import android.content.Context;
 import android.text.format.DateUtils;
+import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
+import com.parse.GetFileCallback;
+import com.parse.ParseFile;
+import com.parse.ParseUser;
+
+import java.io.File;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -85,6 +93,18 @@ public class Utils {
             return ellipsized;
         } else {
             return str;
+        }
+    }
+
+    public static void loadProfileImage(final Context context, final ImageView iv, final ParseUser user) {
+        ParseFile img = user.getParseFile("profileImage");
+        if (img != null) {
+            img.getFileInBackground(new GetFileCallback() {
+                @Override
+                public void done(File file, com.parse.ParseException e) {
+                    Glide.with(context).load(file).into(iv);
+                }
+            });
         }
     }
 }
